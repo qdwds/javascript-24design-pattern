@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工厂模式</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function Cat() {
+        this.name = '猫咪🐈'
+    }
+    Cat.prototype.action = function () {
+        console.log('猫咪，喵喵叫～');
+    }
+    function Dog() {
+        this.name = '狗子🐶'
+    }
+    Dog.prototype.action = function(){
+        console.log('狗子，汪汪汪～');
+    }
+
+    function Chicken() {
+        this.name = '公鸡🐓'
+    }
+    Chicken.prototype.action = function(){
+        console.log('公鸡，打鸣儿～');
+    }
+
+    //  工厂模式
+    // 把所有产品都让一个工厂去生产，需要什么直接从工厂里面生产（拿）什么；
+    // 这样我们只需要记住这个工厂名字就可以，不需要在去记每个独立的零件名称
+    function Animal(name) {
+        switch(name){
+            case 'cat':
+                return new Cat();
+            case 'dog':
+                return new Dog();
+            case 'chicken':
+                return new Chicken();
+            }
+    }
+
+    //  调用工厂模式
+    const cat = new  Animal('cat');
+    console.log(cat.name);
+    cat.action();
+</script>
