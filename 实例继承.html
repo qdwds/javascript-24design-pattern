@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实例继承</title>
+</head> 
+<body>
+    
+</body>
+</html>
+<script>
+    function Language (){
+        this.arr = ['html','css']
+    };
+    function JavaScript() {}
+    JavaScript.prototype = new Language();
+    
+    const js1 = new JavaScript();
+    const js2 = new JavaScript();
+    console.log(js1.arr);   //  (2) ["html", "css"]
+    console.log(js2.arr);   //  (2) ["html", "css"]
+    //  这样直接修改Language上面的属性，会导致在其他实例中的同属性也会被修改掉
+    js1.arr.push('JavaScript')
+    console.log(js1.arr);   //  (3) ["html", "css", "JavaScript"]
+    console.log(js2.arr);   //  (3) ["html", "css", "JavaScript"]
+</script>

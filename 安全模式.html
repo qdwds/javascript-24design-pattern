@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+    //  如果忘记new
+    const Person = function(){
+        //  判断this 是否是Person类
+        if( this instanceof Person){
+            this.name = '小明';
+        }else{
+            return new Person()
+        }
+    }
+    const xiao = Person();
+    console.log(xiao.name);
+    console.log(window.name);
+</script>
