@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型继承</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function Init(o) {
+        //  声明一个过渡函数的对象
+        function F() {}
+        //  过渡对象的原型继承父类对象
+        F.prototype = o;
+        //  返回过渡对象的一个实例，该实例的原型继承了父对象
+        return new F();
+    }
+    // 这种方式由F过渡类的构造函数中无内容，所以开销会比较小。
+
+    let book = {
+        name :"前端伪大叔",
+        books: ['css','html']
+    }
+
+    let book1 = Init(book);
+    book1.name = '这个是book1 的name';
+    book1.books.push('javascript');
+
+    let book2 = Init(book);
+    book2.name = '这个是book2 的name';
+    book2.books.push('nestjs');
+
+    console.log(book1.name);
+    console.log(book1.books);
+
+    console.log(book2.name);
+    console.log(book2.books);
+    
+    console.log(book.name);
+    console.log(book.books);
+    // 父类的book中的基本类型属性被复制
+    // 引用类型属性被共用
+</script>

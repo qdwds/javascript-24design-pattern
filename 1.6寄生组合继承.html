@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寄生组合继承</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+    /***
+     * 寄生继承 继承原型
+     * 传递参数 fatherClass 父类
+     * 传递参数 sonClass    子类
+     */
+    //  定义父类
+    function FatherClass(name) {
+        this.name = name;
+        this.colors = ['red', 'pick'];
+    }
+    //  定义父类原型方法
+    FatherClass.prototype.getName = function () {
+        console.log(this.name);
+    }
+
+    //  定义子类
+    function SonClass(name, time) {
+        //  构造函数式继承
+        FatherClass.call(this, name);
+        //  子类新增属性
+        this.time = time;
+    }
+    //  寄生式继承父类原型
+
+
+    
+    function Init(fatherClass, sonClass) {
+        //  复制一份父类的原型副本保存在变量中
+        let p = Init(fatherClass.prototype);
+        //  修正因为重写子类原型导致子类的constroctor属性被修改
+        p.constroctor = sonClass;
+        //  设置子类原型
+        sonClass.prototype = p;
+    }
+</script>

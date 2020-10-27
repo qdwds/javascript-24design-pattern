@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寄生继承</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+    //  声明基对象
+    const book = {
+        name: '前端伪大叔',
+        books: ['html','css']
+    }
+
+    //  原型继承
+    function Init(o) {
+        //  声明一个过渡函数的对象
+        function F() {}
+        //  过渡对象的原型继承父类对象
+        F.prototype = o;
+        //  返回过渡对象的一个实例，该实例的原型继承了父对象
+        return new F();
+    }
+
+    function CreateBook(obj) {
+        let o = Init(obj);
+        o.getName = function () {
+            console.log(name);
+        }
+        return o;
+    }
+    let book1 = new CreateBook(book);
+    console.log(book1);
+
+    有问题
+</script>

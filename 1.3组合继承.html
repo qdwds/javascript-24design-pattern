@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组合继承</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // 父类
+    function Person(name) {
+        //  共有属性
+        this.name = name ;
+        //  共有引用类型
+        this.books = ['html','css']
+    }
+    //  父类原型
+    Person.prototype.getName = function () {
+        console.log(this.name);
+    }
+
+    //  子类
+    function Adult(name,time) {
+        //  继承父类name属性
+        Person.call(this,name);
+        this.time = time
+    }
+    //  子类原型
+    Adult.prototype.getTime = function () {
+        console.log(this.time);
+    }
+    //  继承父类原型
+    Adult.prototype = new Person();
+
+
+    let ming = new Adult('小明',2020);
+    ming.books.push('javascript')
+    console.log(ming);
+
+    let hong = new Adult('小红',2021);
+    hong.books.push('serverless');
+    console.log(hong);
+
+    // 子类创建的实例更改父类的继承下来的引用类型属性，不会影响到其他实例
+    // 子类实例话过程中又能将仓鼠传递到父类的构造函数中
+
+    // 缺点
+    // 在使用构造函数继承时执行了一遍 父类的构造函数，而实现子类原型 又掉了一遍父类构造函数 。因此父类构造函数被调用两遍
+
+</script>

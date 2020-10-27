@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构造函数继承</title>
+</head>     
+<body>
+    
+</body>
+</html>
+<script>
+
+    function Person(id) {
+        this.id = id;
+        Person.prototype.get = function () {
+            console.log('penson get');
+        }
+    }
+
+    function Adult(id) {
+        this.type ='大人';
+        Person.call(this,id)
+    }
+    let ming = new  Adult(12);
+    let hong = new Adult(33);
+    console.log(ming.id);
+    console.log(hong.id);
+
+    //  因为没有涉及到原型继承，所以下面会报错
+    // ming.get()  TypeError
+    // hong.get()  TypeError
+</script>
