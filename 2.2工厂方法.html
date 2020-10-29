@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //  在使用工厂模式情况下，如果多个需求过来，在需要修改函数的时候，还需要修改工厂里面内容，极其繁琐。
+    //  所以我们可以使用 工厂模式 + 安全模式来解决。
+
+    function Fun(type, content) {
+        if (this instanceof Fun) {
+            var s = new this[type](content)
+            return s;
+        } else {
+            return new Fun(type, content)
+        }
+    }
+    //  姑且看成工厂零件把
+    Fun.prototype = {
+        css:function(content) {
+            console.log('css',content );
+        },
+        html:function(content){
+            console.log('html',content);
+        },
+    }
+    //  配置传入的内容
+    var data = [
+        {type: 'css', content: "csscontent",},
+        {type: 'html', content: "htmlcontent",}
+    ]
+
+    for (let i = 0; i < data.length; i++) {
+        Fun(data[i].type, data[i].content)
+    }
+
+
+
+</script>
