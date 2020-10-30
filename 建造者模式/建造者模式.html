@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    //  人类
+    const Human = function(){
+        //  技能
+        this.skill = param && param.skill || '保密';
+        //  兴趣爱好
+        this.hobby = param && param.hobby || '保密'
+    }
+
+    //  人类原型方法
+    Human.prototype = {
+        getSkill(){
+            return this.skill;
+        },
+        getHobby(){
+            return this.hobby;
+        }
+    }
+
+    //  实例化姓名类
+    const Named = function(name){
+        const _this = this;
+        //  构造器 构造函数解析姓名的姓于名
+        (function(name,_this){
+            _this.wholeName = name;
+            if(name.indexOf(' ' > -1)){
+                //  todo    上班去～
+            }
+        })()
+    }
+</script>
