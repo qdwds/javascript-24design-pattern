@@ -11,7 +11,7 @@
 </html>
 <script>
     //  人类
-    const Human = function(){
+    const Human = function(param){
         //  技能
         this.skill = param && param.skill || '保密';
         //  兴趣爱好
@@ -32,11 +32,58 @@
     const Named = function(name){
         const _this = this;
         //  构造器 构造函数解析姓名的姓于名
-        (function(name,_this){
-            _this.wholeName = name;
-            if(name.indexOf(' ' > -1)){
-                //  todo    上班去～
-            }
-        })()
+        (function(name){
+            _this.name = name
+        })(name,_this)
     }
+
+
+
+    //  实例化职位类
+    const Work = function(work){
+        const _this = this;
+        (function(work,_this){
+            switch(work){
+                case 'code':
+                    _this.work = '写代码的～'
+                break;
+                case 'ui':
+                    _this.work = '画画的'
+                break;
+                default:
+                    _this.work = work;
+            }
+        })(work,_this)
+    }
+
+    //  更换期望职位
+    Work.prototype.changeWork = function(work){
+        this.work = work;
+    }
+
+
+
+    // 这种方式同样是集中管理统一暴露
+    //  创建应聘者
+    const Person = function(name,work){
+        //  应聘者缓存对象
+        let _preson = new Human();
+        //  应聘者姓名解析
+        _preson.name = new Named(name);
+        //  应聘者职位
+        _preson.work = new Work(work)
+        return _preson;
+    }
+
+
+
+    //  创建实例测试
+    let ming = new Person('小明','code')
+    console.log(ming.name);
+    console.log(ming.hobby);
+    console.log(ming.skill);
+    console.log(ming.work);
+    ming.name = '改了个名字'
+    console.log(ming);
+
 </script>
