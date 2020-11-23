@@ -1,27 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>实例继承</title>
-</head> 
+    <title>实例/原型继承</title>
+</head>
+
 <body>
-    
+
 </body>
+
 </html>
 <script>
-    function Language (){
-        this.arr = ['html','css']
+    /**
+     * 优点：
+     *      简单容易实现，可以直接访问父级原型上的属性的方法；
+     *      最终实例是 子类实例， 也是父类的实例
+     *      父类新增的原型的方法子类都能访问
+     * 缺点：
+     *      想实现继承必须 new 父级构造函数
+     *      创建的子类实例 无法向父类传参
+     *      无法实现多继承
+     *      来自原生的属性都是共享的
+     */
+    function Language() {
+        this.arr = ['html', 'css'];
+        this.str = '123'
     };
-    function JavaScript() {}
+    function Css(){
+        this.css = 'css'
+    }
+
+    //  继承父类    无法给父级传参
+    JavaScript.prototype = new Css()
     JavaScript.prototype = new Language();
-    
-    const js1 = new JavaScript();
+    function JavaScript(val) {
+        this.val = val;
+        JavaScript.prototype.get = function (val) {
+            console.log(val);      //  get fun
+            console.log(this.val);  //  this.val
+        }
+    }
+
+    const js1 = new JavaScript('this.val');
     const js2 = new JavaScript();
+
+    //  获取父级属性
     console.log(js1.arr);   //  (2) ["html", "css"]
     console.log(js2.arr);   //  (2) ["html", "css"]
+
     //  这样直接修改Language上面的属性，会导致在其他实例中的同属性也会被修改掉
+    //  父级属性共享
     js1.arr.push('JavaScript')
     console.log(js1.arr);   //  (3) ["html", "css", "JavaScript"]
     console.log(js2.arr);   //  (3) ["html", "css", "JavaScript"]
+
+    js1.get('get fun')
+    
+    //  无法实现多继承  根据上面案例只能继承 Language 无法继承 Css
+    console.log(js1.css);
 </script>
