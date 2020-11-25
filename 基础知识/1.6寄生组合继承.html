@@ -14,88 +14,43 @@
 </html>
 
 <script>
-    /***
-     * 寄生继承 继承原型
-     * 传递参数 fatherClass 父类
-     * 传递参数 sonClass    子类
-     */
-    //  定义父类
-    function FatherClass(name) {
-        this.name = name;
-        this.colors = ['red', 'pick'];
-
-        //  定义父类原型方法
-        FatherClass.prototype.getName = function () {
-            console.log(this.name);
-        }
-    }
-
-
-    //  定义子类
-    function SonClass(name, time) {
-        FatherClass.call(this, name);
-        this.time = time;
-    }
-    Init(SonClass, FatherClass);
-    SonClass.prototype.getTime = function () {
-        console.log(this.time);
-    }
-
-
-    function Init(sonClass, fatherClass) {
-        //  复制一份父类的原型副本保存在变量中
-        let p = Init(fatherClass.prototype);
-        //  修正因为重写子类原型导致子类的constroctor属性被修改
-        p.constroctor = sonClass;
-        //  设置子类原型
-        sonClass.prototype = p;
-    }
-    const test1 = new sonClass('js', 2002)
-    const test2 = new sonClass('css', 2090);
-
-    console.log(test1);
-    console.log(test2);
-
 
     /**
-* 原型链继承：子类继承父类
-* */
-    function inheritProto(son, father) {
+     * 寄生组合继承
+     *  一种完美的继承方法
+     */
+
+    function Father(name) {
+        this.name = name;
+        Father.prototype.nameFun = function () {
+            return `Father ${this.name}`;
+        };
+    }
+
+    function Son(name, age) {
+        this.age = age;
+        Father.call(this, name);  //继承父类实例属性 和 方法
+        Son.prototype.ageFun = function () {
+            return `Son ${this.age} ${this.name}`;
+        };
+    }
+
+    function inherit(son, father) {
         let prototype = Object.create(father.prototype);  //创建对象，父类原型副本
         prototype.constructor = son;    //增强对象，弥补重写原型失去的默认的constructor
         son.prototype = prototype;      //指定对象，将创建的对象覆给 子类的原型
     }
 
-    function Father(name) {
-        this.name = name;
-    }
+    inherit(Son, Father);
 
-    Father.prototype.SayName = function () {
-        console.log("Father:", this.name);
-    };
-    function Son(name, age) {
-        Father.call(this, name);  //继承父类实例属性 和 方法
-        this.age = age;
-    }
+    let son = new Son("小明", 19),
+        father = new Father("小红");
+    console.log(son);
+    console.log(son.ageFun());
+    console.log(son.nameFun());
+    console.log(son instanceof Son);
 
-    inheritProto(Son, Father);
-
-    Son.prototype.SayAge = function () {
-        console.log("Son", this.age, this.name,);
-    };
-
-    let son = new Son("MrChen", 19),
-        father = new Father("Rainy");
-
-    son ==
-
-        age: 19
-    name: "MrChen"   //继承父类实例属性
-    __proto__: Father
-    SayAge: ƒ()        //继承子类原型方法
-    constructor: ƒ Son(name, age)
-    __proto__:
-    SayName: ƒ()   //继承父类原型方法
-    constructor: ƒ Father(name)
-    __proto__: Object
+    console.log(father);
+    console.log(father.nameFun());
+    console.log(father instanceof Father);
 </script>
