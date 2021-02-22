@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // 原型模式就是将 可复用，可共享，好事大的从基类中提出来然后放到原型上。
+    // 然后子类通过组合继承或者寄生组合继承而将方法和属性继承下来，对于子类中那些需要重写的方法进行重写，
+    // 这样子子类创建的对象既有子类的属性和方法也共享了基类的原型方法
+
+    //  图片轮播类
+    const LoopImage = function(imageArr,container){
+        this.imageArr = imageArr;   //  轮播图片
+        this.container = container; //  容器
+    }
+    LoopImage.prototype = {
+        //  创建轮播图片
+        createImage(){
+            console.log('创建轮播图片');
+        },
+        //  切换下一章
+        changeImage(){
+            console.log('切换图片');
+        }
+    }
+
+    //  上下滑动切换类
+    const SlideLoopImg = function(imgArr,container){
+        //  构造函数继承图片轮播类
+        LoopImage.call(this,imgArr,container)
+    }
+    SlideLoopImg.prototype = new LoopImage()
+
+    //  重写继承的切换下一张图片方法
+    SlideLoopImg.prototype.changeImage = function(){
+        console.log('重写切换图片');
+    }
+
+    //  渐隐切换类
+    const FadeLoopImg = function(imgArr,container,arrow){
+        LoopImage.call(this,imgArr,container);
+        this.arrow = arrow;
+    }
+
+    FadeLoopImg.prototype = new LoopImage();
+    FadeLoopImg.prototype.changeImage = function(){
+        console.log('change image');
+    }
+    const fadeimg = new FadeLoopImg();
+    console.log(fadeimg.container);
+</script>
