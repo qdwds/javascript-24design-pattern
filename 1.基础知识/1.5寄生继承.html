@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>寄生继承</title>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>
 
 <script>
-    //  声明基对象
-    const book = {
-        name: '前端伪大叔',
-        books: ['html','css']
+    /**
+     * 一种思路
+     * 在原型的基础上增强了对象，返回新的构造函数
+     * 
+     * 缺点
+     *      无法传参
+     *      共享 ·引用类型值· 修改一个全部修改
+     *      没有用到原型 无法服用
+     */
+    function Fun(origin) {
+        let t = Object.create(origin);
+        t.name = 'my'
+        t.my = function () {
+            console.log(this);
+            return `this.name is ${this.name}`
+        };
+        return t; 
     }
+    let origin = {
+        name: "前端伪大叔",
+        books: ["html", "css", "JavaScript"]
+    };
+    let fun = Fun(origin);
+    let fun1 = Fun(origin);
 
-    //  原型继承
-    function Init(o) {
-        //  声明一个过渡函数的对象
-        function F() {}
-        //  过渡对象的原型继承父类对象
-        F.prototype = o;
-        //  返回过渡对象的一个实例，该实例的原型继承了父对象
-        return new F();
-    }
+    //  共享引用类型
+    fun.books.push('vue')
+    fun.books.push('react')
+    console.log(fun.books); //  (5) ["html", "css", "JavaScript", "vue", "react"]
+    console.log(fun1.books); //  (5) ["html", "css", "JavaScript", "vue", "react"]
 
-    function CreateBook(obj) {
-        let o = Init(obj);
-        o.getName = function () {
-            console.log(name);
-        }
-        return o;
-    }
-    let book1 = new CreateBook(book);
-    console.log(book1);
-
-    有问题
 </script>

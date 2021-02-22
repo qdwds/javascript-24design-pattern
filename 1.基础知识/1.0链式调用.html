@@ -10,17 +10,22 @@
 </body>
 </html>
 <script>
-    function Person(){}
-    Person.prototype.eat = function () {
-        console.log('吃饭');
-        return this;
+    function Person(){
+        this.value = '前,端,伪,大,叔';
+    }
+    Person.prototype.split = function () {
+        return this.value.split(',');
     }
 
-    Person.prototype.sleep = function () {
-        console.log('睡觉');
+    Person.prototype.reverse = function () {
+        if(!Array.isArray(this.value)) return 'not Array'
+        this.value.reverse();
         return this;
     }
 
     const ming = new Person();
-    ming.eat().sleep();
+    console.log(ming.split());              //  (5) ["前", "端", "伪", "大", "叔"]
+    console.log(ming.split().reverse());    //  (5) ["叔", "大", "伪", "端", "前"]
+    console.log(ming.reverse());            //  not Array
+    console.log(ming.value);                //  前,端,伪,大,叔
 </script>

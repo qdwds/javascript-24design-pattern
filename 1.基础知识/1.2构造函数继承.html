@@ -1,33 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>构造函数继承</title>
-</head>     
+</head>
+
 <body>
-    
+
 </body>
+
 </html>
 <script>
-
+    /**
+     *  优点:
+     *      创建的子类,可以向父类传参
+     *  缺点:
+     *      每个实例都拷贝一份,占内存大
+     *      只能继承父类构造函数的属性和方法,不能继承父类原型上的属性和方法;
+     */
     function Person(id) {
-        this.id = id;
-        Person.prototype.get = function () {
-            console.log('penson get');
+        this.id = id || 'id not';
+        this.fun = function(id){
+            return `只能继承原型上的属性和方法 - ${id}`;
+        }
+
+        //  原型上的属性和方法
+        Person.prototype = {
+            value: '不能继承原型上的属性和方法',
+            get() {
+                console.log('penson get');
+            }
         }
     }
 
     function Adult(id) {
-        this.type ='大人';
-        Person.call(this,id)
-    }
-    let ming = new  Adult(12);
-    let hong = new Adult(33);
-    console.log(ming.id);
-    console.log(hong.id);
+        this.type = '子类';
 
-    //  因为没有涉及到原型继承，所以下面会报错
-    // ming.get()  TypeError
-    // hong.get()  TypeError
+        //  给父类传参
+        Person.call(this, id)
+    }
+
+    //  给父类传参
+    const adult = new Adult('前端伪大叔');
+    console.log(adult); //  __proto__: Object   没有继承 Person原型~ 直接找到了 Object原型上
+
+    //  调用父类的属性和方法
+    console.log(adult.id);
+    console.log(adult.fun('id'));
+
+    // 因为只是实现了构造函数继承,所有无法使用原型上的属性和方法
+    console.log(adult.value);   //  undefined
+    console.log(adult.get());   // Uncaught TypeError: adult.get is not a function
 </script>
